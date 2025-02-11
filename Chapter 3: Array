@@ -1,1 +1,9 @@
+mychparr = [3,6,4,8] #defining array
+print("\n original array before calling insert:")
+print(mychparr) #print array
+
+mychparr.insert(0,7) #Calling insert method to place element at index 0 with a value of 7
+
+print("\n after calling insert:")
+print(mychparr) #printing array after insert method is called
 
