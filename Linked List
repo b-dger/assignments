@@ -1,0 +1,71 @@
+class Node:
+    def __init__(self, data):  # initialize a node with data and a pointer to the next node
+        self.data = data  # Store the data in the node
+        self.next = None  # Initialize the next pointer as None (no next node yet)
+
+class LinkedList:
+    def __init__(self):  # initialize an empty linked list
+        self.head = None  # head of the linked list starts as None (empty list)
+
+    def insert(self, data):  # Method to insert a new node at the end of the linked list
+        new_node = Node(data)  # Create a new node with the given data
+        if not self.head:  # If the list is empty, set the head to the new node
+            self.head = new_node
+        else:
+            current = self.head  # Start from the head node
+            while current.next:  # move to the last node in the list
+                current = current.next
+            current.next = new_node  # Set the last node's next pointer to the new node
+
+    def display(self):  # Method to print all elements of the linked list
+        current = self.head  # Start from the head node
+        while current:  # Loop through all nodes
+            print(current.data, end=' -> ')  # Print current node's data
+            current = current.next  # Move to the next node
+        print("None")  # shows the end of the list
+
+    def merge_sort(self, head):  #  Merge Sort function to sort the linked list
+        if not head or not head.next:  # Base case: if the list is empty or has only one node, return as is
+            return head
+        mid, slow, fast = None, head, head  # Initialize pointers for finding the middle
+        while fast and fast.next:  # Move fast pointer twice as fast as slow pointer
+            mid, slow, fast = slow, slow.next, fast.next.next
+        mid.next = None  # Split the list into two halves by breaking the link
+        left = self.merge_sort(head)  # repeat sorting the left half
+        right = self.merge_sort(slow)  # repeat sorting the right half
+        return self.sorted_merge(left, right)  # Merge the sorted halves (left and right)
+
+    def sorted_merge(self, left, right):  # to merge two sorted linked lists
+        if not left:  # If left list is empty, return right list
+            return right
+        if not right:  # If right list is empty, return left list
+            return left
+        if left.data <= right.data:  # Choose the smaller element and repeatedly merge
+            left.next = self.sorted_merge(left.next, right)
+            return left
+        right.next = self.sorted_merge(left, right.next)
+        return right
+
+    def sort(self):  # Public method to initiate merge sort on the linked list
+        self.head = self.merge_sort(self.head)
+
+    def average(self):  # Method to calculate the average of even numbers in the linked list
+        current, even_sum, even_count = self.head, 0, 0  # Initialize variables
+        while current:  # Traverse the list
+            if current.data % 2 == 0:  # Check if the node's data is even
+                even_sum += current.data  # Add to sum
+                even_count += 1  # Increase count
+            current = current.next  # Move to the next node
+        return even_sum / even_count if even_count else 0  # Return average if evens exist, else return 0
+
+values = [4, 2, 7, 1, 6, 3, 5]  # Predefined list of values
+linked_list = LinkedList()  # Create an instance of the linked list
+for value in values:
+    linked_list.insert(value)  # Insert values into the linked list
+
+print("Original Linked List:")
+linked_list.display()  # original list
+linked_list.sort()  # Sort the linked list
+print("Sorted Linked List (Ascending):")
+linked_list.display()  # Display sorted list
+print(f"Average of even elements: {linked_list.average()}")  # Print average of the elements
