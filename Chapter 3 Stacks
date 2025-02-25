@@ -1,0 +1,38 @@
+def get_input():
+   """Function to take input from the user as a list of integers."""
+   arr = input(
+       "Enter space separated integers: ").split()  # split breaks a string into a list of words based on spaces
+   arr = [int(num) for num in arr]  # Convert input strings to integers
+   return arr
+
+
+
+
+def reverse_using_stack(arr):
+   """Function to reverse an array using a stack."""
+   stack = []
+   for element in arr:
+       stack.append(element)
+
+
+   reverse_arr = []
+   while stack:
+       reverse_arr.append(stack.pop())
+
+
+   return reverse_arr
+
+
+
+
+def main():
+   """Main function to execute the program."""
+   arr = get_input()
+   reverse_arr = reverse_using_stack(arr)
+   print("Reversed Array:", *reverse_arr)
+
+
+
+
+if __name__ == "__main__":
+   main()
