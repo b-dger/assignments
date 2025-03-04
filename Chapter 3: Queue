@@ -1,0 +1,26 @@
+from collections import deque
+# Function to input the array from the user
+def inputArr():
+    arr = list(map(int, input("Enter the array elements separated by space: ").split()))
+    return arr
+# Function to reverse the array using Queue
+def revQueue(arr):
+    # Initialize an empty Queue (deque)
+    queue = deque()
+    # Enqueue all elements of the array into the queue
+    for num in arr:
+        queue.append(num)
+    # Dequeue all elements to make a reversed array
+    revArr = []
+    while queue:
+        revArr.append(queue.pop())  # Pop from the right of the deque
+
+    return revArr
+
+def main():
+    arr = inputArr()
+    revArr = revQueue(arr)
+    print("Reversed Array:", revArr)
+
+if __name__ == "__main__":
+    main()
