@@ -1,0 +1,21 @@
+def getInput():
+    s1 = input("Enter the first string: ")
+    s2 = input("Enter the second string: ")
+    return s1, s2
+
+def uncommmonConcat(s1, s2):
+    set1 = set(s1)
+    set2 = set(s2)
+
+
+    common = set1 & set2
+
+    uncommon1 = set1 - common
+    uncommon2 = set2 - common
+
+    result = "".join(uncommon1) + "".join(uncommon2)
+    return result
+
+s1, s2 = getInput()
+result = uncommmonConcat(s1, s2)
+print(result)
