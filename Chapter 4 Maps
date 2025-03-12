@@ -1,0 +1,34 @@
+# Phonebook dictionary
+phonebook = {}
+
+
+# add, search, or delete an entry
+def manage_phonebook(action, name=None, number=None):
+    if action == "add":
+        phonebook[name] = number
+        print(f"Added {name}: {number}")
+    elif action == "search":
+        print(f"{name}: {phonebook.get(name, 'Not found')}")
+    elif action == "delete":
+        if phonebook.pop(name, None):
+            print(f"Deleted {name}")
+        else:
+            print(f"{name} not found")
+
+
+# Menu loop
+while True:
+    choice = input("\n1. Add  2. Search  3. Delete  4. Show All  5. Exit\nChoose: ")
+
+    if choice == "1":
+        manage_phonebook("add", input("Name: "), input("Number: "))
+    elif choice == "2":
+        manage_phonebook("search", input("Name: "))
+    elif choice == "3":
+        manage_phonebook("delete", input("Name: "))
+    elif choice == "4":
+        print("\nPhonebook:", phonebook)
+    elif choice == "5":
+        break
+    else:
+        print("Invalid choice, try again.")
