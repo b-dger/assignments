@@ -10,19 +10,19 @@ class BinaryTree:
 
     def insert(self, value):
         if self.root is None:
-            self.root = TreeNode(value)  # Fixed: Use TreeNode instead of Node
+            self.root = TreeNode(value)  
         else:
             self._insert(self.root, value)
 
     def _insert(self, current, value):
         if value < current.value:
             if current.left is None:
-                current.left = TreeNode(value)  # Fixed: Use TreeNode instead of Node
+                current.left = TreeNode(value)  
             else:
                 self._insert(current.left, value)
         else:
             if current.right is None:
-                current.right = TreeNode(value)  # Fixed: Use TreeNode instead of Node
+                current.right = TreeNode(value)  
             else:
                 self._insert(current.right, value)
 
@@ -52,6 +52,8 @@ def input_tree():
 tree = input_tree()
 print("Tree values (Inorder Traversal):")
 tree.inorder_traversal(tree.root)
+
+
 
 sum_five = tree.sum_divisible_by_five(tree.root)
 print(f"\nSum of nodes divisible by 5: {sum_five}")
