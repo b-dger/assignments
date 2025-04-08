@@ -1,0 +1,77 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    # insert value into BST
+    def insert(self, value):
+        if self.root is None:
+            self.root = TreeNode(value)
+        else:
+            self.inSert(self.root, value)
+
+    def inSert(self, current, value): 
+        if value < current.value:
+            if current.left is None:
+                current.left = TreeNode(value)
+            else:
+                self.inSert(current.left, value)
+        else:
+            if current.right is None:
+                current.right = TreeNode(value)
+            else:
+                self.inSert(current.right, value)
+
+    # in order traversal
+    def inorder_traversal(self, node):
+        if node is not None:
+            self.inorder_traversal(node.left)
+            print(node.value, end=" ")
+            self.inorder_traversal(node.right)
+
+    # find kth largest element reverse order
+    def find_kth_largest(self, node, k, counter):
+        if node is None:
+            return None
+        result = self.find_kth_largest(node.right, k, counter)
+        if result is not None:
+            return result
+        counter[0] += 1
+        if counter[0] == k:
+            return node.value
+        return self.find_kth_largest(node.left, k, counter)
+
+    # sum of all elements >= given value
+    def sum_kth(self, node, threshold):  
+        if node is None:
+            return 0
+        if node.value < threshold:
+            return self.sum_kth(node.right, threshold)
+        return node.value + self.sum_kth(node.left, threshold) + self.sum_kth(node.right, threshold)
+
+# input values
+def input_tree():
+    tree = BinaryTree()
+    values = list(map(int, input("Enter space-separated values for BST: ").split()))
+    for value in values:
+        tree.insert(value)
+    return tree
+
+
+tree = input_tree()
+
+print("Tree values (Inorder Traversal):")
+tree.inorder_traversal(tree.root)
+
+k = int(input("\nEnter value of k: "))
+kth_largest = tree.find_kth_largest(tree.root, k, [0])
+total = tree.sum_kth(tree.root, kth_largest)  # fixed name
+print(f"\nSum of elements >= {k}-th largest ({kth_largest}): {total}")
+
+
+
