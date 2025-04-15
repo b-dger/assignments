@@ -1,0 +1,14 @@
+import heapq
+
+def heap_sort_decreasing(arr):
+    """ sort an array in decreasing order using a min heap."""
+    min_heap = [-x for x in arr]
+    heapq.heapify(min_heap)
+    return [-heapq.heappop(min_heap) for _ in range(len(arr))]
+
+if __name__ == "__main__":
+    try:
+        arr = [int(x) for x in input("enter array values separated by spaces ").split()]
+        print("sorted array (decreasing order):", heap_sort_decreasing(arr))
+    except ValueError:
+        print("invalid input. Please enter integers separated by spaces.")
