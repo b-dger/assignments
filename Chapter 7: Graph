@@ -1,0 +1,56 @@
+def input_graph():
+    """Inputs the graph from the keyboard as an adjacency matrix."""
+    num_nodes = int(input("Enter the number of nodes: "))
+    adj_matrix = [[0] * num_nodes for _ in range(num_nodes)]
+    print("Enter edges (e.g., '0 1', or 'done'):")
+    while True:
+        edge = input("> ").split()
+        if edge[0] == 'done': break
+        u, v = map(int, edge)
+        adj_matrix[u][v] = adj_matrix[v][u] = 1  
+    return adj_matrix
+
+def delete_node(graph, node):
+    """Deletes a node from the graph's adjacency matrix."""
+    if not graph or not (0 <= node < len(graph)): return None
+    new_graph = [
+        [graph[i][j] for j in range(len(graph)) if j != node]
+        for i in range(len(graph)) if i != node
+    ]
+    return new_graph
+
+def display_graph(graph):
+    """Displays the graph's adjacency matrix."""
+    if not graph: return
+    print("Adjacency Matrix:")
+    for row in graph: print(row)
+
+if __name__ == "__main__":
+    graph = input_graph()
+    if graph:
+        display_graph(graph)
+        new_graph = delete_node(graph, 2)
+        if new_graph:
+            print("\nAfter deleting node 2:")
+            display_graph(new_graph)
+
+
+
+#* **"Enter edges ('0 1', or 'done'):"**
+    '''enter the connections (edges) between the nodes. carefully observe the graph and type 
+    each edge one per line as a pair of numbers separated by a space.  
+    The order of the numbers in a pair doesn't matter (because it's an undirected graph).
+
+    * Type the following lines, pressing Enter after each:
+        ---
+        0 1
+        0 4
+        1 2
+        1 3
+        1 4
+        2 3
+        3 4
+        done
+        ---
+    * Type 'done' and press Enter to signal that you're finished entering edges.
+    ''' 
